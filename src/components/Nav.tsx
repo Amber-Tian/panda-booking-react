@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import x from '../icons/panda.svg'
+import {NavLink} from 'react-router-dom';
+import Icon from './icon'
 
 const NavWrapper = styled.nav`
   line-height: 24px;
@@ -11,13 +11,21 @@ const NavWrapper = styled.nav`
     > li {
       width: 33.3333%;
       text-align: center;
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      > img {
-        width: 24px;
-        height: 24px;
+      > a {
+        padding: 4px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .icon {
+          width: 24px;
+          height: 24px;
+        }
+        &.selected {
+          color:#f00;
+          .icon {
+            fill: #f00;
+          }
+        }
       }
     }
   }
@@ -28,16 +36,22 @@ const Nav = () => {
     <NavWrapper>
       <ul>
         <li>
-          <Link to="/tags">标签</Link>
+          <NavLink to="/tags" activeClassName="selected">
+            <Icon name='label' />
+            标签
+          </NavLink>
         </li>
         <li>
-          <img src={x} alt='记账'/>
-          <Link to="/money">
+          <NavLink to="/money" activeClassName="selected">
+            <Icon name='money' />
             记账
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/statistics">统计</Link>
+          <NavLink to="/statistics" activeClassName="selected">
+            <Icon name='statistic' />
+            统计
+          </NavLink>
         </li>
       </ul>
     </NavWrapper>
