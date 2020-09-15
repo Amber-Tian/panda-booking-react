@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 
 const Wrapper = styled.div`
+  background: #f5f5f5;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,12 +13,15 @@ const Wrapper = styled.div`
 const Main = styled.div`
   flex-grow: 1;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const Layout = (props: any) => {
   return (
     <Wrapper>
-      <Main>
+      <Main className={props.className}>
         {props.children}
       </Main>
       <Nav/>

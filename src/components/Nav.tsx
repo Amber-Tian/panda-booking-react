@@ -21,9 +21,9 @@ const NavWrapper = styled.nav`
           height: 24px;
         }
         &.selected {
-          color:#f00;
+          color:#42b983;
           .icon {
-            fill: #f00;
+            fill: #42b983;
           }
         }
       }
@@ -36,7 +36,7 @@ const Nav = () => {
     <NavWrapper>
       <ul>
         <li>
-          <NavLink to="/tags" activeClassName="selected">
+          <NavLink to="/labels" activeClassName="selected">
             <Icon name='label' />
             标签
           </NavLink>

@@ -5,7 +5,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import Tags from './views/Tags';
+import Labels from './views/Labels';
 import Statistics from './views/Statistics';
 import Money from './views/Money';
 import NoMatch from './views/NoMatch';
@@ -15,8 +15,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/tags">
-          <Tags/>
+        <Route path="/labels">
+          <Labels/>
         </Route>
         <Route path="/statistics">
           <Statistics/>
