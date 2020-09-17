@@ -52,7 +52,7 @@ const NoResult = styled.div`
 function Statistics() {
   const [type, setType] = useState<'-' | '+'>('-');
   const {records} = useRecords();
-  const {findTag} = useTags();
+  const {getName} = useTags();
   const selectedRecords = records.filter(i => i.type === type);
   const hash: { [key: string]: RecordItem[] } = {}; // {'YYYY-MM-DD': [records, records, ...]}
 
@@ -93,7 +93,7 @@ function Statistics() {
               <ul key={t.createAt[1]}>
                 <Li>
                   {t.tagIds
-                    .map(i => <span key={i}>{findTag(i).name}</span>)
+                    .map(i => <span key={i}>{getName(i)}</span>)
                     .reduce((result, span, index, array) =>
                       result.concat(index < array.length - 1 ? [span, '&'] : [span]), [] as ReactNode[])
                   }

@@ -85,8 +85,8 @@ const EditLabel: React.FC = () => {
       <label className="tagName">
         <span className="name">标签名</span>
         <input type="text" placeholder="请输入标签名" ref={refInput}
-               defaultValue={tag.name}
-               onBlur={(e) => updateTag(tag.id, {name: e.target.value})}
+               value={tag.name}
+               onChange={(e) => updateTag(tag.id, {name: e.target.value})}
         />
       </label>
       <div className="button-wrapper">
@@ -94,7 +94,7 @@ const EditLabel: React.FC = () => {
                 onClick={() => {
                   if (!refInput.current) { return; }
                   if (refInput.current.value === '') {
-                    window.alert('标签名不能为空');
+                    window.alert('标签名为空');
                   } else {history.goBack();}
                 }}
         >保存
@@ -115,7 +115,11 @@ const EditLabel: React.FC = () => {
     <Layout>
       <Wrapper>
         <div className="navBar">
-          <span onClick={() => {history.goBack();}}>
+          <span onClick={() => {
+            if (!refInput.current) { return; }
+            if (refInput.current.value === '') {updateTag(parseInt(id), {name: '无'})}
+            history.goBack();
+          }}>
             <Icon name="left"/>
           </span>
           <span className="title">编辑标签</span>
