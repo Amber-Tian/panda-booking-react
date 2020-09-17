@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import {useTags} from '../../lib/useTags';
 
 const TagsWrapper = styled.div`
   overflow: auto;
@@ -41,39 +42,33 @@ const TagsWrapper = styled.div`
   }
 `
 type Props = {
-  value: string[],
-  onChange: (value: string[]) => void
+  value: number[],
+  onChange: (value: number[]) => void
 }
 
 const Tags: React.FC<Props> = (props) => {
-  const [tags, setTags] = useState<string[]>(['衣','食','住','行'])
-  const selectedTag = props.value
-  const onAddTag = () => {
-    const tagName = window.prompt('请输入标签名')
-    if (tagName !== null && tagName !== '') {
-      setTags([...tags, tagName])
-    }
-  }
-  const onToggleTag = (tag: string) => {
-    const index = selectedTag.indexOf(tag)
+  const {tags, addTag} = useTags()
+  const selectedTagIds = props.value
+  const onToggleTag = (tagId: number) => {
+    const index = selectedTagIds.indexOf(tagId)
     if (index >= 0) {
-      props.onChange(selectedTag.filter(t => t !== tag))
+      props.onChange(selectedTagIds.filter(t => t !== tagId))
     }else{
-      props.onChange([...selectedTag, tag])
+      props.onChange([...selectedTagIds, tagId])
     }
   }
-  const getClass = (tag: string) => selectedTag.indexOf(tag) >= 0 ? 'selected' : ''
+  const getClass = (tagId: number) => selectedTagIds.indexOf(tagId) >= 0 ? 'selected' : ''
   return (
     <TagsWrapper>
       <ul>
         {tags.map(tag =>
-          <li key={tag} onClick={() => {onToggleTag(tag)}}
-              className={getClass(tag)}
-          >{tag}</li>
+          <li key={tag.id} onClick={() => {onToggleTag(tag.id)}}
+              className={getClass(tag.id)}
+          >{tag.name}</li>
         )}
       </ul>
       <div>
-        <button onClick={onAddTag}>新增标签</button>
+        <button onClick={addTag}>新增标签</button>
       </div>
     </TagsWrapper>
   )

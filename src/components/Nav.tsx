@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
-import Icon from './icon'
+import Icon from './icon';
 
 const NavWrapper = styled.nav`
   line-height: 24px;
@@ -37,25 +37,25 @@ const Nav = () => {
       <ul>
         <li>
           <NavLink to="/labels" activeClassName="selected">
-            <Icon name='label' />
+            <Icon name='label'/>
             标签
           </NavLink>
         </li>
         <li>
           <NavLink to="/money" activeClassName="selected">
-            <Icon name='money' />
+            <Icon name='money'/>
             记账
           </NavLink>
         </li>
         <li>
           <NavLink to="/statistics" activeClassName="selected">
-            <Icon name='statistic' />
+            <Icon name='statistic'/>
             统计
           </NavLink>
         </li>
       </ul>
     </NavWrapper>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

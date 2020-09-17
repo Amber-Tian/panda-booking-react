@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {ChangeEventHandler} from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.label`
@@ -24,19 +24,15 @@ type Props = {
 }
 const Notes: React.FC<Props> = (props) => {
   const notes = props.value
-  const refInput = useRef<HTMLInputElement>(null)
-  const onBlur = () => {
-    if(refInput.current !== null) {
-      props.onChange(refInput.current.value)
-    }
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    props.onChange(e.target.value)
   }
   return (
     <Wrapper>
       <span>备注</span>
       <input type="text" placeholder="在这里添加备注"
-             ref={refInput}
-             defaultValue={notes}
-             onBlur={onBlur}
+             value={notes}
+             onChange={onChange}
       />
     </Wrapper>
   )

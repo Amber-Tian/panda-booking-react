@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import Icon from '../../components/icon';
 
 const TypesWrapper = styled.ul`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background: #42b983;
   display: flex;
   text-align: center;
   font-size: 18px;

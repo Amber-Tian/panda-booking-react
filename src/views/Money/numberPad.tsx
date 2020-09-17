@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Icon from '../../components/icon';
 
@@ -68,48 +68,77 @@ const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 type Props = {
   value: number,
-  onChange: (value: number) => void
+  onChange: (value: number) => void,
+  onOk: () => void,
+  value2: string[],
+  onChange2: (value: string[]) => void
 }
 const NumberPad: React.FC<Props> = (props) => {
-  const output = props.value.toString()
-
+  const [output, _setOutput] = useState(props.value.toString());
+  const setOutput = (output: string) => {
+    _setOutput(output);
+    props.onChange(parseFloat(output));
+  };
   const inputContent: any = (event: React.MouseEvent) => {
     const button = (event.target as HTMLButtonElement);
     const input = button.textContent!;
     if (output.length === 9) {return;}
     if (output === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
-        props.onChange(parseFloat(input));
+        setOutput(input);
       } else {
-        props.onChange(parseFloat(output + input));
+        setOutput(output + input);
       }
       return;
     }
     if (output.indexOf('.') >= 0 && input === '.') {return;}
 
-    props.onChange(parseFloat(output + input));
-  }
+    setOutput(output + input);
+  };
 
   const remove = () => {
     if (output.length === 1) {
-      props.onChange(0);
+      setOutput('0');
     } else {
-      props.onChange(parseFloat(output.slice(0, -1)));
+      setOutput(output.slice(0, -1));
     }
-  }
-
+  };
   const clear = () => {
-    props.onChange(0);
-  }
+    setOutput('0');
+  };
+  const Ok = () => {
+    setOutput('0');
+    props.onOk();
+  };
+
+  const formatDate = () => {
+    const day = new Date();
+    const detailDay = `${day.getFullYear()}-${('0' + (day.getMonth() + 1)).slice(-2)}-${day.getDate()}`;
+    const detailTime = `${day.getHours()}:${day.getMinutes()}:${day.getSeconds()}`;
+    return [detailDay, detailTime];
+  };
+  const [day, setDay] = useState(props.value2[0]);
+
   return (
     <Wrapper>
       <div className="topWrapper">
         <label className="notes">
           <span>日期</span>
-          <input type="date" placeholder="在这里输入日期"/>
+          <input type="date" placeholder="在这里输入日期"
+                 value={day}
+                 max={formatDate()[0]}
+                 onChange={(e) => {
+                   setDay(e.target.value);
+                   if (e.target.value === formatDate()[0]) {
+                     props.onChange2([e.target.value, formatDate()[1]]);
+                   } else {
+                     props.onChange2([e.target.value, '']);
+                   }
+                 }}
+          />
         </label>
         <div className="output">{output}</div>
       </div>
@@ -118,7 +147,7 @@ const NumberPad: React.FC<Props> = (props) => {
         <button onClick={inputContent}>2</button>
         <button onClick={inputContent}>3</button>
         <button onClick={remove}>
-          <Icon name="delete" />
+          <Icon name="delete"/>
         </button>
         <button onClick={inputContent}>4</button>
         <button onClick={inputContent}>5</button>
@@ -127,12 +156,12 @@ const NumberPad: React.FC<Props> = (props) => {
         <button onClick={inputContent}>7</button>
         <button onClick={inputContent}>8</button>
         <button onClick={inputContent}>9</button>
-        <button className="ok">OK</button>
+        <button onClick={Ok} className="ok">OK</button>
         <button onClick={inputContent} className="zero">0</button>
         <button onClick={inputContent}>.</button>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default NumberPad
+export default NumberPad;
