@@ -56,13 +56,12 @@ function Statistics() {
   const selectedRecords = records.filter(i => i.type === type);
   const hash: { [key: string]: RecordItem[] } = {}; // {'YYYY-MM-DD': [records, records, ...]}
 
-  selectedRecords.map(i => {
+  selectedRecords.forEach(i => {
     const key = i.createAt[0];
     if (!(key in hash)) {
       hash[key] = [];
     }
     hash[key].push(i);
-    return hash;
   });
 
   const array = Object.entries(hash).sort((a, b) => {

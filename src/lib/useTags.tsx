@@ -18,7 +18,7 @@ const useTags = () => {
   }, []);
   useUpdate(() => {
     window.localStorage.setItem('tags', JSON.stringify(tags));
-  }, [tags]);
+  }, tags);
   const findTag = (id: number) => tags.filter(t => t.id === id)[0];
 
   const removeTag = (id: number) => {

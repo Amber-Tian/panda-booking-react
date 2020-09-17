@@ -17,7 +17,7 @@ const useRecords = () => {
 
   useUpdate(() => {
     window.localStorage.setItem('records', JSON.stringify(records));
-  }, [records]);
+  }, records);
 
   const addRecord = (record: RecordItem) => {
     if (record.amount === 0 || record.amount === 0.) {
