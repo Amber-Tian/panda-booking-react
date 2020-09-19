@@ -73,8 +73,8 @@ type Props = {
   value: number,
   onChange: (value: number) => void,
   onOk: () => void,
-  value2: string[],
-  onChange2: (value: string[]) => void
+  value2: string,
+  onChange2: (value: string) => void
 }
 const NumberPad: React.FC<Props> = (props) => {
   const [output, _setOutput] = useState(props.value.toString());
@@ -114,30 +114,17 @@ const NumberPad: React.FC<Props> = (props) => {
     props.onOk();
   };
 
-  const formatDate = () => {
-    const day = new Date();
-    const detailDay = `${day.getFullYear()}-${('0' + (day.getMonth() + 1)).slice(-2)}-${day.getDate()}`;
-    const detailTime = `${day.getHours()}:${day.getMinutes()}:${day.getSeconds()}`;
-    return [detailDay, detailTime];
-  };
-  const [day, setDay] = useState(props.value2[0]);
+  const today = `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${new Date().getDate()}`;
+  const [day, setDay] = useState(props.value2);
 
   return (
     <Wrapper>
       <div className="topWrapper">
         <label className="notes">
           <span>日期</span>
-          <input type="date" placeholder="在这里输入日期"
-                 value={day}
-                 max={formatDate()[0]}
-                 onChange={(e) => {
-                   setDay(e.target.value);
-                   if (e.target.value === formatDate()[0]) {
-                     props.onChange2([e.target.value, formatDate()[1]]);
-                   } else {
-                     props.onChange2([e.target.value, '']);
-                   }
-                 }}
+          <input type="date" value={day}
+                 max={today}
+                 onChange={(e) => setDay(e.target.value)}
           />
         </label>
         <div className="output">{output}</div>

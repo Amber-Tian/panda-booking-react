@@ -6,7 +6,7 @@ export type RecordItem = {
   notes: string
   type: '-' | '+'
   amount: number
-  createAt: string[]
+  createAt: string
 }
 const useRecords = () => {
   const [records, setRecords] = useState<RecordItem[]>([]);

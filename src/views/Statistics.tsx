@@ -36,12 +36,6 @@ const Li = styled.li`
     margin-left: 16px;
     color: #999;
   }
-
-  > .time {
-    margin-left: auto;
-    margin-right: 16px;
-    color: #999;
-  }
 `;
 
 const NoResult = styled.div`
@@ -89,7 +83,7 @@ function Statistics() {
           <ul key={date}>
             <Title>{date}<span>￥{totalMoney(records)}</span></Title>
             {records.map(t =>
-              <ul key={t.createAt[1]}>
+              <ul key={Math.random()}>
                 <Li>
                   {t.tagIds
                     .map(i => <span key={i}>{getName(i)}</span>)
@@ -97,7 +91,6 @@ function Statistics() {
                       result.concat(index < array.length - 1 ? [span, '&'] : [span]), [] as ReactNode[])
                   }
                   <span className="notes">{t.notes}</span>
-                  <span className="time">{t.createAt[1]}</span>
                   <span>￥{t.amount}</span>
                 </Li>
               </ul>

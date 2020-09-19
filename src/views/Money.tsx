@@ -25,7 +25,7 @@ const defaultSelectedItem = {
   notes: '',
   type: '-' as ('-' | '+'),
   amount: 0,
-  createAt: [today, '']
+  createAt: today
 };
 
 function Money() {
